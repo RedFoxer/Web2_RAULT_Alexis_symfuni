@@ -1,0 +1,28 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <section class="container">
+        <div class="row">
+            <h1>Article list</h1>
+            {% for article in articles %}
+                <ul class="thumbnails">
+                    <li class="span3">
+                        <div class="thumbnail">
+                            <img src="{{ article.picture|default(asset('bundles/app/img/default-article.jpg')) }}"
+                                 alt="DevAndClick" width="300" height="300">
+
+                            <div class="caption">
+                                <h4>{{ article.title }}</h4>
+
+                                <p>{{ article.publishedAt|date('Y-m-d H:i:s') }}</p>
+                                <a class="btn btn-primary" href="{{ path('article_show', { 'id': article.id }) }}">Lire
+                                    la Suite !</a>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            {% endfor %}
+
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"/>
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>DevAndClick Fronted</title>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-responsive.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/font-awesome.css') }}"/>
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <button class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse" type="button">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="brand" href="{{ url('contact') }}">Contact</a>
+            <div class="nav-collapse collapse">
+                <ul class="nav navbar-nav">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li><a class="brand" href="/admin/dashboard">Admin Dashboard</a></li>
+                    {% endif %}
+                    {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                        <li><a class="brand" href="{{ path('fos_user_security_logout') }}">
+                                {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                            </a>
+                        </li>
+                    {% else %}
+                        <li><a class="brand" href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a></li>
+                    {% endif %}
+                </ul>
+                <form class="navbar-form form-search pull-right">
+                    <a class="brand" href="{{ url('article') }}">My Articles</a>
+                    <a class="brand" href="{{ url('category') }}">My Categories</a>
+                    <a class="brand" href="{{ url('tag') }}">My Tags</a>
+                    <a href="#" class="brand dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false">API<span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="/api/article">Article Json</a>
+                            <a href="/api/category">Category Json</a>
+                            <a href="/api/tag">Tag Json</a>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block body %}{% endblock %}
+
+
+
+<script src="{{ asset('js/jquery-1.10.0.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
+{% block javascripts %}{% endblock %}
+</body>
+</html>

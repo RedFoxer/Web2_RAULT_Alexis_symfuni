@@ -1,0 +1,23 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="container">
+        <div class="row">
+
+            <img src="{{ article.picture|default(asset('bundles/app/img/default-article.jpg')) }}" alt="DevAndClick"
+                 width="300" height="300">
+
+            <h4>{{ article.title }}</h4>
+            <h5>{{ article.publishedAt|date('Y-m-d H:i:s') }}</h5>
+
+            <p>{{ article.content }}</p>
+
+                    <a class="btn btn-primary" href="{{ path('article') }}">
+                        Back to the list
+                    </a><br/><br/>
+
+        </div>
+    </div>
+
+
+{% endblock %}
